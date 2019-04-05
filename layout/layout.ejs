@@ -58,7 +58,7 @@ if(!is_post()){
 <% 
 }
 	if(page.current!=undefined&&page.current!=0){
-%>	<h1>djytw's Blog</h1>
+%>	<h1>djytw&apos;s Blog</h1>
 	<h5>世界中の哀しみ抱いても</h5>
 <%
 	}
@@ -127,8 +127,34 @@ if(!is_post()){
 </div>
 <script src="/js/git.js"></script>
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
+	sys_check_ie();
+	if (!NodeList.prototype.forEach) {  
+	    NodeList.prototype.forEach = function(callback, thisArg) {  
+	        var T, k;  
+	        if (this == null) {  
+	            throw new TypeError(" this is null or not defined");  
+	        }  
+	        var O = Object(this);  
+	        var len = O.length >>> 0; // Hack to convert O.length to a UInt32  
+	        if ({}.toString.call(callback) != "[object Function]") {  
+	            throw new TypeError(callback + " is not a function");  
+	        }  
+	        if (thisArg) {  
+	            T = thisArg;  
+	        }  
+	        k = 0;  
+	        while (k < len) {  
+	            var kValue;  
+	            if (k in O) {  
+	                kValue = O[k];  
+	                callback.call(T, kValue, k, O);  
+	            }  
+	            k++;  
+	        }  
+	    };  
+	}
 
+	document.addEventListener('DOMContentLoaded', function() {
     	M.Sidenav.init(document.querySelectorAll('.sidenav'), {});
     	M.Tabs.init(document.querySelectorAll('.tabs'), {});
     	M.Collapsible.init(document.querySelectorAll('.collapsible'), {});
@@ -184,7 +210,7 @@ if(!is_post()){
 	function ui_scrollfire_card(){
 		var elems = document.querySelectorAll('#mainc>.card:not(.show)');
 		elems.forEach(function(t){
-			if(t.getBoundingClientRect().y+100<window.innerHeight)
+			if(t.getBoundingClientRect().top+100<window.innerHeight)
 				t.classList.add('show');
 		})
 	}
@@ -241,6 +267,11 @@ if(!is_post()){
 		document.querySelectorAll(".materialboxedbg,.materialboxedimg").forEach(function(elem){
 			elem.remove();
 		})
+	}
+	function sys_check_ie(){
+		if(!!window.ActiveXObject || "ActiveXObject" in window){
+			document.write('<div style="position:absolute;top:0px;left:0px;height:100px;width:100%;background:#42a5f5;color:white;z-index:99999;font-size:32px;font-family:sans-serif;text-align:center" id="noie" onclick="noie.style.visibility=\'hidden\'">现在已经9012年了，而你还在用IE！</div>');
+		}
 	}
 </script>
 
