@@ -1,0 +1,229 @@
+ 
+<%
+var pageTitle = page.title || config.subtitle || '';
+if (is_archive()) pageTitle = 'Archives';
+if (is_tag()) pageTitle = 'Tag: ' + page.tag;
+if (is_category()) pageTitle = 'Category: ' + page.category;
+if (is_year()) pageTitle = 'Archives: ' + page.year;
+if (is_month()) pageTitle = 'Archives: ' + page.month + '/' + page.year;
+
+var pageTitleFull = pageTitle+' [ ' + config.title + ' ]';
+if(is_home())pageTitle="djytw"
+
+var tagsList = list_tags({separator:'',style: 'none'});
+var categoriesList = list_categories({class: 'waves-effect waves-red collect',style: 'none',separator:''});
+%>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="description" content="djytw, djytw blog, blog ">
+
+<link rel="apple-touch-icon-precomposed" href="<%=theme.favicon%>">
+<meta name="msapplication-TileImage" content="<%=theme.favicon%>">
+<link rel="icon" href="<%=theme.favicon%>">
+<%
+	if(page.thumbnail !=undefined&&page.thumbnail !=""){
+%>
+<meta name="theme-color" content="#444444">
+<meta name="msapplication-TileColor" content="#444444">
+<%
+	}else{
+%>
+<meta name="theme-color" content="#42a5f5">
+<meta name="msapplication-TileColor" content="#42a5f5">
+<%
+	}
+%>
+<title><%=pageTitleFull%></title>
+<link href="/css/materialize.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/prettify/r298/prettify.min.css">
+<link href="/css/doc.css" rel="stylesheet">
+</head>
+<body>
+	<header class="hide-on-large-only" >
+<% 
+if(!is_post()){ 
+%>	<div style="background: url(<%=theme.cdn%><%=theme.header_bg%>) no-repeat;"></div>
+<% 
+}else if(page.thumbnail==undefined||page.thumbnail==""){ 
+%>	<div style="background: url(<%=theme.cdn%><%=theme.header_bg%>) no-repeat;"></div>
+<% 
+}else{ 
+%>	<div style="background: url(<%=page.thumbnail%>) no-repeat;"></div> 
+<% 
+}
+	if(page.current!=undefined&&page.current!=0){
+%>	<h1>djytw's Blog</h1>
+	<h5>世界中の哀しみ抱いても</h5>
+<%
+	}
+%>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#" data-target="slide-out" class="waves-effect sidenav-trigger" id="menubtn"><i class="material-icons">menu</i></a>
+			<span id="navtitle"><%=pageTitle%></span>
+		</div>
+	</nav>
+
+	<ul id="slide-out" class="sidenav">
+		<li>
+			<div class="user-view">
+				<div class="background">
+					<img src="/img/logo.png">
+				</div>
+				<div class="content">
+					<h4>djytw</h4>
+					<i class="material-icons md-16">place</i>
+					<span><a>Taiyuan, China.</a></span><br>
+					<i class="material-icons md-16">email</i>
+					<span><a href="mailto:djytw@live.com">djytw@live.com</a></span><br>
+					<i class="material-icons md-16">code</i>
+					<span><a href="https://github.com/djytw">https://github.com/djytw</a></span>
+				</div>
+			</div>
+		</li>
+		<li><a href="/"><i class="material-icons">home</i>Home</a></li>
+		<li><a href="/archives"><i class="material-icons">archive</i>Archives</a></li>
+		<li>
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Tags<i class="material-icons">local_offer</i><i class="material-icons right">expand_more</i></a>
+					<div class="collapsible-body">
+						<div id="tag-tags">
+							<%-tagsList%>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">Categories<i class="material-icons">list</i><i class="material-icons right">expand_more</i></a>
+					<div class="collapsible-body">
+						<ul class="collect">
+							<%-categoriesList%>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</header>
+<div class="container" id="content">
+	<div class="row">
+		<div class="col s12 l9" id="mainc">
+			<%-body%>
+		</div>
+		<div class="col l3 hide-on-med-and-down">
+			<%-partial('partials/sidebar')%>
+		</div>
+	</div>
+</div>
+<script src="/js/git.js"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+
+    	M.Sidenav.init(document.querySelectorAll('.sidenav'), {});
+    	M.Tabs.init(document.querySelectorAll('.tabs'), {});
+    	M.Collapsible.init(document.querySelectorAll('.collapsible'), {});
+		ui_scrollfire_card();
+
+		//getGithubEvent();
+		//getGithubRepo();
+		scrollTo(0,0);
+		document.querySelectorAll('.materialboxed').forEach(function(elem){
+			elem.parentNode.onmousedown=function(){
+				this.classList.add("materialboxedmousedown");
+				setTimeout("document.querySelectorAll('.materialboxedmousedown').forEach(function(elem){elem.classList.remove('materialboxedmousedown')})",500);
+			}
+			elem.parentNode.onmouseup=function(){
+				if(this.classList.contains('materialboxedmousedown')){
+					ui_img_click(this.querySelector('.materialboxed'));
+				}
+			}
+		});
+	});
+	window.addEventListener('scroll', ui_scrollfire_card);
+	window.addEventListener('scroll',function(){
+
+		//parralax. disabled due to lag
+		//var elems = document.querySelector('header>div');
+		//elems.style.transform="translate3d(0,"+window.scrollY/2+"px,0)";
+
+		//navbar scrollfire
+		var elems = document.querySelector('nav');
+		var elem2 = document.querySelector('nav #navtitle');
+
+<% if(is_post){ %>
+
+		if(window.scrollY>window.innerHeight*.40-100) t=1;
+		else if(window.scrollY<window.innerHeight*.40-200) t=0;
+		else t=(window.scrollY-window.innerHeight*.40+200)/100;
+
+<% } else { %>
+
+		if(window.scrollY>window.innerHeight*.60-100) t=1;
+		else if(window.scrollY<window.innerHeight*.60-200) t=0;
+		else t=(window.scrollY-window.innerHeight*.60+200)/100;
+
+<% } %>
+		elems.style.background="rgba(100, 181, 246,"+t+")";
+		elems.style.boxShadow="0 "+2*t+"px "+2*t+"px 0 rgba(0, 0, 0, 0.14), 0 "+3*t+"px "+t+"px -"+2*t+"px rgba(0, 0, 0, 0.12), 0 "+t+"px "+5*t+"px 0 rgba(0, 0, 0, 0.2)";
+		elem2.style.opacity=t;
+
+		//materialboxed autoremove
+		document.querySelectorAll(".materialboxedbg,.materialboxedimg").forEach(function(elem){
+			elem.remove();
+		})
+	})
+	function ui_scrollfire_card(){
+		var elems = document.querySelectorAll('#mainc>.card:not(.show)');
+		elems.forEach(function(t){
+			if(t.getBoundingClientRect().y+100<window.innerHeight)
+				t.classList.add('show');
+		})
+	}
+	function ui_img_click(elem){
+		var bg = document.createElement("div");
+		bg.classList.add("materialboxedbg");
+		document.body.appendChild(bg);
+		var img = document.createElement("img");
+		img.classList.add("materialboxedimg");
+		img.style.top=elem.getBoundingClientRect().top+"px";
+		img.style.left=elem.getBoundingClientRect().left+"px";
+		img.style.width=elem.getBoundingClientRect().width+"px";
+		img.style.height=elem.getBoundingClientRect().height+"px";
+		img.src=elem.src;
+		document.body.appendChild(img);
+	}
+</script>
+
+<footer>
+  <div id="footer-left">
+    <a href="http://github.com/djytw"><svg id="gitlogo" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+  </div>
+  <div id="footer-middle">
+    copyright&nbsp;&copy; 
+    <script type="text/javascript">
+      var fd = new Date();
+      document.write("2012-"+fd.getFullYear());
+      </script> 
+    djytw. <br>
+    All rights reserved.
+  </div>
+  <div id="footer-right">
+    <div>
+      Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a><br>
+      & <a href="https://materializecss.com/" target="_blank" class="footer-develop-a">Materialize</a>
+    </div>
+  </div>
+</footer>
+<script src="/js/materialize.js"></script> 
+</body>
+</html>

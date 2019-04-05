@@ -1,0 +1,93 @@
+<% 
+page.posts.each(function(post) { 
+  tagslist=list_tags(post.tags, {show_count: false,style: 'none'});
+  categories=list_categories(post.categories, {show_count: false,style: 'none'});
+  if(tagslist=="")tagslist="none";
+  if(categories=="")categories="none";
+  if(post.thumbnail !=undefined&&post.thumbnail !=""){ %> 
+  <script>console.log("<%=exists(post.thumbnail)%>")</script>
+    <div class="card medium hoverable">
+      <div class="card-image">
+        <img class="materialboxed"  src="<%=url_for(post.path)%><%=post.thumbnail%>">
+        <span class="card-title">
+        <span class="card-subtitle"><%=date(post.date)%></span>
+        <h3><%=post.title%></h3></span>
+      </div>
+      <div class="card-content">
+        <p><%=strip_html(post.excerpt)%></p>
+      </div>
+      <div class="card-action">
+        <div class="left-align truncate col clsfi">
+          <i class="material-icons md-16">local_offer</i>
+          <span><%- tagslist %></span>
+          <br/>
+          <i class="material-icons md-16">book</i>
+          <span><%- categories %></span>
+        </div>
+        <div class="right-align">
+          <br/>
+          <a href="<%=config.root + post.path%>" style="float:right">继续阅读&gt;&gt; </a>
+        </div>
+      </div>
+    </div>
+    <% }else{ %>
+    <div class="card small hoverable">
+      <div class="card-content">
+        <span class="card-subtitle"><%=date(post.date)%></span>
+        <h3><%=post.title%></h3><br>
+        <p><%=strip_html(post.excerpt)%></p>
+      </div>
+      <div class="card-action">
+        <div class="left-align truncate col clsfi">
+          <i class="material-icons md-12">local_offer</i>
+          <span><%- tagslist %></span>
+          <br/>
+          <i class="material-icons md-12">book</i>
+          <span><%- categories %></span>
+        </div>
+        <div class="right-align">
+          <br/>
+          <a href="<%=config.root + post.path%>" style="float:right">继续阅读&gt;&gt; </a>
+        </div>
+      </div>
+    </div>
+    <% } %>
+<% }); %>
+<ul class="pagination">
+<% 
+  	var dis,pact,phref;
+  	if(page.current==1){
+  		dis="disabled";
+  		pact="active";
+  		phref="#";
+  	}else{
+  		dis="waves-effect";
+  		pact="waves-effect";
+  		phref=url_for("");
+  	}
+%>
+	<li class="<%=dis%>"><a href="<%-url_for(page.prev_link)%>"><i class="material-icons">chevron_left</i></a></li>
+	<li class="<%=pact%>"><a href="<%=phref%>">1</a></li>
+<%
+	var i=2;
+	while(i<=page.total){
+		if(page.current==i){
+			pact="active";
+			phref="#";
+		}else{
+			pact="waves-effect";
+			phref=url_for("/page/"+i);
+		}
+%>
+	<li class="<%-pact%>"><a href="<%-phref%>"><%-i%></a></li>
+<%
+		i++;
+	}
+	if(page.current==page.total){
+		dis="disabled";
+	}else{
+		dis="waves-effect";
+	}
+%>
+	<li class="<%-dis%>"><a href="<%-url_for(page.next_link)%>"><i class="material-icons">chevron_right</i></a></li>
+</ul>
