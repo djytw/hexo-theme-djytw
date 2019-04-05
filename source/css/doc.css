@@ -311,10 +311,10 @@ header>h1{
 #archives .card-content, #archives-a {
 	padding: 0;
 }
-#tag-tags {
+#tag-tags, #tag-tags-m {
 	padding: 10px;
 }
-#tag-tags>a {
+#tag-tags>a, #tag-tags-m>a {
 	display: inline-block;
 	height: 32px;
 	font-size: 13px;
@@ -327,7 +327,7 @@ header>h1{
 	margin-bottom: 8px;
 	margin-right: 5px;
 }
-#tag-tags>a>span {
+#tag-tags>a>span, #tag-tags-m>a>span{
 	float: right;
 	margin: 0 -12px 0 8px;
 	height: 32px;
@@ -396,11 +396,12 @@ footer {
 }
 #footer-middle {
 	order: 1;
+	font-size:0.9rem;
 }
 #footer-right {
 	order: 2;
 	margin-right: 40px;
-	font-size:0.9rem;
+	font-size:0.8rem;
 }
 #gitlogo {
 	fill: #a5adb5;
@@ -418,6 +419,11 @@ footer {
 .sidenav{
 	width:75%;
 }
+.sidenav::-webkit-scrollbar
+{
+    width: 0;
+}
+
 nav{
 	width:100%;
 	position:fixed;

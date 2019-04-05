@@ -45,6 +45,8 @@ var categoriesList = list_categories({class: 'waves-effect waves-red collect',st
 <link href="/css/doc.css" rel="stylesheet">
 </head>
 <body>
+	<!--  IE 9-  NO FIX -->
+	<!--[if IE]> <div style="position:fixed;top:0px;padding-top:10%;left:0px;height:100%;width:100%;background:#42a5f5;color:white;z-index:99999;font-size:50px;font-family:sans-serif;text-align:center" >现在已经9012年了，而你还在用IE！</div> <![endif]-->
 	<header class="hide-on-large-only" >
 <% 
 if(!is_post()){ 
@@ -94,7 +96,7 @@ if(!is_post()){
 				<li>
 					<a class="collapsible-header">Tags<i class="material-icons">local_offer</i><i class="material-icons right">expand_more</i></a>
 					<div class="collapsible-body">
-						<div id="tag-tags">
+						<div id="tag-tags-m">
 							<%-tagsList%>
 						</div>
 					</div>
@@ -127,7 +129,7 @@ if(!is_post()){
 </div>
 <script src="/js/git.js"></script>
 <script>
-	sys_check_ie();
+	//IE 10,11 fix: forEach
 	if (!NodeList.prototype.forEach) {  
 	    NodeList.prototype.forEach = function(callback, thisArg) {  
 	        var T, k;  
@@ -153,6 +155,26 @@ if(!is_post()){
 	        }  
 	    };  
 	}
+	//IE 10,11 fix:Node.remove()
+	// from:https://github.com/jserz/js_piece/blob/master/DOM/ChildNode/remove()/remove().md
+	(function (arr) {
+	  arr.forEach(function (item) {
+	    if (item.hasOwnProperty('remove')) {
+	      return;
+	    }
+	    Object.defineProperty(item, 'remove', {
+	      configurable: true,
+	      enumerable: true,
+	      writable: true,
+	      value: function remove() {
+	        if (this.parentNode !== null)
+	          this.parentNode.removeChild(this);
+	      }
+	    });
+	  });
+	})([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
+
+	//IE Fix End
 
 	document.addEventListener('DOMContentLoaded', function() {
     	M.Sidenav.init(document.querySelectorAll('.sidenav'), {});
@@ -268,11 +290,6 @@ if(!is_post()){
 			elem.remove();
 		})
 	}
-	function sys_check_ie(){
-		if(!!window.ActiveXObject || "ActiveXObject" in window){
-			document.write('<div style="position:absolute;top:0px;left:0px;height:100px;width:100%;background:#42a5f5;color:white;z-index:99999;font-size:32px;font-family:sans-serif;text-align:center" id="noie" onclick="noie.style.visibility=\'hidden\'">现在已经9012年了，而你还在用IE！</div>');
-		}
-	}
 </script>
 
 <footer>
@@ -290,8 +307,9 @@ if(!is_post()){
   </div>
   <div id="footer-right">
     <div>
-      Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a><br>
-      & <a href="https://materializecss.com/" target="_blank" class="footer-develop-a">Materialize</a>
+      Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a>
+      & <a href="https://materializecss.com/" target="_blank" class="footer-develop-a">Materialize</a><br>
+      Theme: <a href="https://github.com/djytw/hexo-theme-djytw">hexo-theme-djytw</a>
     </div>
   </div>
 </footer>
