@@ -2,7 +2,7 @@
 # html lang
 language: en
 
-cdn: / #https://djytw.azurewebsites.net/
-header_bg: img/bg2.jpg
+cdn: https://djytw.azurewebsites.net/
+header_bg: bg2.jpg
 
 favicon: /favicon.ico

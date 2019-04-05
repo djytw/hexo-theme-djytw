@@ -47,10 +47,10 @@ if(is_home())pageTitle="djytw"
 	<header class="hide-on-large-only" >
 <% 
 if(!is_post()){ 
-%>	<div style="background: url(<%=theme.cdn%><%=theme.header_bg%>) no-repeat;"></div>
+%>	<div style="background: url(<%=theme.cdn%>sources/<%=theme.header_bg%>) no-repeat;"></div>
 <% 
 }else if(page.thumbnail==undefined||page.thumbnail==""){ 
-%>	<div style="background: url(<%=theme.cdn%><%=theme.header_bg%>) no-repeat;"></div>
+%>	<div style="background: url(<%=theme.cdn%>sources/<%=theme.header_bg%>) no-repeat;"></div>
 <% 
 }else{ 
 %>	<div style="background: url(<%=page.thumbnail%>) no-repeat;"></div> 
@@ -89,9 +89,14 @@ if(!is_post()){
 		ui_scrollfire_card();
 		ui_materialboxed_init();
 		scrollTo(0,0);
-
-		util_github_getevent();
-		util_github_getrepos();
+<% if(is_post()){ %>
+		var hr = document.createElement("hr");
+		document.querySelector("a#more").parentNode.appendChild(hr);
+<% } %>
+		if(window.innerWidth>=993){
+			util_github_getevent();
+			util_github_getrepos();
+		}
 	});
 
 	window.addEventListener('scroll', ui_scrollfire_card);
@@ -100,7 +105,7 @@ if(!is_post()){
 		//navbar scrollfire
 		var elems = document.querySelector('nav');
 		var elem2 = document.querySelector('nav #navtitle');
-<% if(is_post){ %>
+<% if(is_post()){ %>
 		if(window.scrollY>window.innerHeight*.40-100) t=1;
 		else if(window.scrollY<window.innerHeight*.40-200) t=0;
 		else t=(window.scrollY-window.innerHeight*.40+200)/100;

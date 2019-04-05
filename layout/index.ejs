@@ -8,7 +8,7 @@ page.posts.each(function(post) {
   <script>console.log("<%=exists(post.thumbnail)%>")</script>
     <div class="card medium hoverable">
       <div class="card-image">
-        <img class="materialboxed"  src="<%=url_for(post.path)%><%=post.thumbnail%>">
+        <img class="materialboxed"  src="<%=theme.cdn%>assets/<%=post.thumbnail%>">
         <span class="card-title">
         <span class="card-subtitle"><%=date(post.date)%></span>
         <h3><%=post.title%></h3></span>
