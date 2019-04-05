@@ -144,11 +144,12 @@ if(!is_post()){
 			}
 			elem.parentNode.onmouseup=function(){
 				if(this.classList.contains('materialboxedmousedown')){
-					ui_img_click(this.querySelector('.materialboxed'));
+					ui_materialboxed_click(this.querySelector('.materialboxed'));
 				}
 			}
 		});
 	});
+	// TODO: window.resize 
 	window.addEventListener('scroll', ui_scrollfire_card);
 	window.addEventListener('scroll',function(){
 
@@ -178,9 +179,7 @@ if(!is_post()){
 		elem2.style.opacity=t;
 
 		//materialboxed autoremove
-		document.querySelectorAll(".materialboxedbg,.materialboxedimg").forEach(function(elem){
-			elem.remove();
-		})
+		ui_materialboxed_close();
 	})
 	function ui_scrollfire_card(){
 		var elems = document.querySelectorAll('#mainc>.card:not(.show)');
@@ -189,18 +188,59 @@ if(!is_post()){
 				t.classList.add('show');
 		})
 	}
-	function ui_img_click(elem){
+	function ui_materialboxed_click(elem){
 		var bg = document.createElement("div");
 		bg.classList.add("materialboxedbg");
-		document.body.appendChild(bg);
+		var onclk=document.createAttribute("onclick");
+		onclk.nodeValue="ui_materialboxed_close()";
+		bg.attributes.setNamedItem(onclk);
 		var img = document.createElement("img");
+		var onclk1=document.createAttribute("onclick");
+		onclk1.nodeValue="ui_materialboxed_close()";
+		img.attributes.setNamedItem(onclk1);
 		img.classList.add("materialboxedimg");
 		img.style.top=elem.getBoundingClientRect().top+"px";
 		img.style.left=elem.getBoundingClientRect().left+"px";
 		img.style.width=elem.getBoundingClientRect().width+"px";
 		img.style.height=elem.getBoundingClientRect().height+"px";
 		img.src=elem.src;
-		document.body.appendChild(img);
+
+		var rules= document.styleSheets[2].cssRules;
+		for(i=0;i<rules.length;i++){
+			if(rules[i] instanceof CSSKeyframesRule){
+				if(rules[i].name=="materialboxedimgshow"){
+					var screenratio=window.innerWidth/window.innerHeight;
+					var imgratio=img.naturalWidth/img.naturalHeight;
+					var width,height;
+					if(imgratio>screenratio){
+						width=Math.min(img.naturalWidth,window.innerWidth*.95);
+						height=width/imgratio;
+					}else{
+						height=Math.min(img.naturalHeight,window.innerHeight*.95);
+						width=height*imgratio;
+					}
+					var left=(window.innerWidth-width)/2;
+					var top=(window.innerHeight-height)/2;
+					rules[i].cssRules[0].style.width=width+"px";
+					rules[i].cssRules[0].style.height=height+"px";
+					rules[i].cssRules[0].style.top=top+"px";
+					rules[i].cssRules[0].style.left=left+"px";
+					break;
+				}
+			}
+		}
+		if(i!=rules.length){
+			//no error occured
+			document.body.appendChild(bg);
+			document.body.appendChild(img);
+		}else{
+			console.log("Error: i="+i);
+		}
+	}
+	function ui_materialboxed_close(){
+		document.querySelectorAll(".materialboxedbg,.materialboxedimg").forEach(function(elem){
+			elem.remove();
+		})
 	}
 </script>
 
