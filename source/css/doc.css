@@ -489,6 +489,9 @@ blockquote p{
 	text-indent: 0px;
 	font-family:monospace, "PingFang SC", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
+article strong{
+	font-weight: 600;
+}
 article .card h1{
 	font-size:32px;
 	margin:0 0 48px 0;

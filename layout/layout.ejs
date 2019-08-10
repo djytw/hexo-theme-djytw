@@ -38,8 +38,8 @@ if(is_home())pageTitle="djytw"
 	}
 %>
 <title><%=pageTitleFull%></title>
-<link href="/css/materialize.css" rel="stylesheet">
-<link href="/css/doc.css" rel="stylesheet">
+<link href="<%=theme.cdn%>sources/materialize.min.css" rel="stylesheet">
+<link href="<%=theme.cdn%>sources/doc.css" rel="stylesheet">
 </head>
 <body>
 	<!--  IE 9-  NO FIX -->
@@ -80,7 +80,7 @@ if(!is_post()){
 		</div>
 	</div>
 </div>
-<script src="/js/doc.js"></script>
+<script src="<%=theme.cdn%>sources/doc.js"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		M.Sidenav.init(document.querySelectorAll('.sidenav'), {});
@@ -88,7 +88,7 @@ if(!is_post()){
 		M.Collapsible.init(document.querySelectorAll('.collapsible'), {});
 		ui_scrollfire_card();
 		ui_materialboxed_init();
-		scrollTo(0,0);
+		//scrollTo(0,0);
 <% if(is_post()){ %>
 		var hr = document.createElement("hr");
 		document.querySelector("a#more").parentNode.appendChild(hr);
@@ -142,6 +142,6 @@ if(!is_post()){
 		</div>
 	</div>
 </footer>
-<script src="/js/materialize.js"></script> 
+<script src="<%=theme.cdn%>sources/materialize.min.js"></script> 
 </body>
 </html>

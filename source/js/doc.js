@@ -37,7 +37,7 @@ function ui_materialboxed_click(elem){
 	img.style.height=elem.getBoundingClientRect().height+"px";
 	img.src=elem.src;
 
-	var rules= document.styleSheets[2].cssRules;
+	var rules= document.styleSheets[1].cssRules;
 	for(i=0;i<rules.length;i++){
 		if(rules[i] instanceof CSSKeyframesRule){
 			if(rules[i].name=="materialboxedimgshow"){
