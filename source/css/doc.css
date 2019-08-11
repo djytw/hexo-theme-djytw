@@ -60,10 +60,10 @@ h1,h2,h3,h4,h5{
 	font-weight:300;	
 }
 #content {
-	opacity: 0.9;
+	opacity: 1;
 }
 .card{
-	background: rgba(255,255,255,0.8);
+	background: rgba(255,255,255,0.9);
 	margin-bottom: 50px;
 	border-radius: 6px !important;
 	overflow: hidden;
@@ -230,6 +230,9 @@ header>h1{
 	margin: 0;
 	padding: 5px 0;
 }
+#intro .card-image img{
+	opacity: 1 !important;
+}
 #intro {
 	margin-bottom: 10px;
 }
@@ -384,7 +387,7 @@ footer {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
-	padding: 32px 16px;
+	padding: 40px 16px;
 	color: #9e9e9e;
 	background-color: #fff;
 	align-items: center;
@@ -655,7 +658,7 @@ li.L9 {
 }
 @media only screen and (min-width: 993px){
 	body {
-		background: url(../img/bg.jpg) no-repeat fixed;
+		background: url(/img/90231.png) no-repeat fixed;
 		background-size: cover;
 	}
 }

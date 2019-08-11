@@ -9,20 +9,20 @@ var categoriesList = list_categories({class: 'waves-effect waves-red collect',st
   </div>
   <div class="card-content">
     <p>
-    <h1>djytw</h1>
-    <h2>世界中の哀しみ抱いても</h2>
+    <h1><%=config.author%></h1>
+    <h2><%=config.subtitle%></h2>
     <hr>
-    Soochow University Microelectronics science and engineering.
+    <%=config.bio%>
     </p>
     <br/>
     <p> <small> <i class="material-icons md-16 grey-text">place</i>
-      <span class="grey-text"><a>Taiyuan, China.</a></span>
+      <span class="grey-text"><a><%=config.address%></a></span>
       <br>
       <i class="material-icons md-16 grey-text">email</i>
-      <span class="grey-text"><a href="mailto:djytw@live.com">djytw@live.com</a></span>
+      <span class="grey-text"><a href="mailto:<%=config.email%>"><%=config.email%></a></span>
       <br>
       <i class="material-icons md-16 grey-text">code</i>
-      <span class="grey-text"><a href="https://github.com/djytw">https://github.com/djytw</a></span>
+      <span class="grey-text"><a href="<%=config.github%>"><%=config.github%></a></span>
       <br>
       </small> </p>
   </div>

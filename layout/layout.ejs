@@ -8,7 +8,7 @@ if (is_year()) pageTitle = 'Archives: ' + page.year;
 if (is_month()) pageTitle = 'Archives: ' + page.month + '/' + page.year;
 
 var pageTitleFull = pageTitle+' [ ' + config.title + ' ]';
-if(is_home())pageTitle="djytw"
+if(is_home()) pageTitle = config.title;
 
 %>
 <!doctype html>
@@ -25,7 +25,7 @@ if(is_home())pageTitle="djytw"
 <meta name="msapplication-TileImage" content="<%=theme.favicon%>">
 <link rel="icon" href="<%=theme.favicon%>">
 <%
-	if(page.thumbnail !=undefined&&page.thumbnail !=""){
+	if(page.thumbnail != undefined&&page.thumbnail !=""){
 %>
 <meta name="theme-color" content="#444444">
 <meta name="msapplication-TileColor" content="#444444">
@@ -39,11 +39,15 @@ if(is_home())pageTitle="djytw"
 %>
 <title><%=pageTitleFull%></title>
 <link href="<%=theme.cdn%>sources/materialize.min.css" rel="stylesheet">
-<link href="<%=theme.cdn%>sources/doc.css" rel="stylesheet">
+<link href="/css/doc.css" rel="stylesheet">
 </head>
 <body>
-	<!--  IE 9-  NO FIX -->
-	<!--[if IE]> <div style="position:fixed;top:0px;padding-top:10%;left:0px;height:100%;width:100%;background:#42a5f5;color:white;z-index:99999;font-size:50px;font-family:sans-serif;text-align:center" >现在已经9012年了，而你还在用IE！</div> <![endif]-->
+	<!-- NO FIX FOR IE 9- -->
+	<!--[if IE]> 
+		<div style="position:fixed;top:0px;padding-top:10%;left:0px;height:100%;width:100%;background:#42a5f5;color:white;z-index:99999;font-size:50px;font-family:sans-serif;text-align:center" >
+			现在已经9102年了，而你还在用IE！
+		</div> 
+	<![endif]-->
 	<header class="hide-on-large-only" >
 <% 
 if(!is_post()){ 
@@ -57,8 +61,8 @@ if(!is_post()){
 <% 
 }
 	if(page.current!=undefined&&page.current!=0){
-%>	<h1>djytw&apos;s Blog</h1>
-	<h5>世界中の哀しみ抱いても</h5>
+%>	<h1><%=config.title%></h1>
+	<h5><%=config.subtitle%></h5>
 <%
 	}
 %>  
@@ -123,22 +127,31 @@ if(!is_post()){
 
 <footer>
 	<div id="footer-left">
-		<a href="http://github.com/djytw"><svg id="gitlogo" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+<% if( config.github != undefined ) {%>
+		<a href="<%=config.github%>"><svg alt="github" id="gitlogo" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+<% } %>
+<% if( config.bangumi != undefined ) {%>
+		<a href="<%=config.bangumi%>"><img alt="bangumi" style="width:24px;height:24px" src="/img/bangumi.png" /></a>
+<% } %>
+<% if( config.kth != undefined ) {%>
+		<a href="<%=config.kth%>"><img alt="kth" style="width:24px;height:24px" src="/img/kth.png" /></a>
+<% } %>
 	</div>
 	<div id="footer-middle">
 		copyright&nbsp;&copy; 
 		<script type="text/javascript">
 			var fd = new Date();
-			document.write("2012-"+fd.getFullYear());
+			document.write("<%=config.copyright%>-"+fd.getFullYear());
 		</script> 
-		djytw. <br>
+		<%=config.author%>. <br>
 		All rights reserved.
 	</div>
 	<div id="footer-right">
 		<div>
 			Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a>
-			& <a href="https://materializecss.com/" target="_blank" class="footer-develop-a">Materialize</a><br>
-			Theme: <a href="https://github.com/djytw/hexo-theme-djytw">hexo-theme-djytw</a>
+			&amp; <a href="https://materializecss.com/" target="_blank" class="footer-develop-a">Materialize</a><br>
+			Theme: <a href="https://github.com/djytw/hexo-theme-djytw">hexo-theme-djytw</a><br>
+			Illustrated by <a href="https://www.pixiv.net/member.php?id=22782">kyockcho</a>. <a href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=61801733">link to image</a>
 		</div>
 	</div>
 </footer>
