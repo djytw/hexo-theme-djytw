@@ -384,6 +384,7 @@ header>h1{
 	align-items: center;
 }
 footer {
+	position: relative;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
@@ -528,7 +529,9 @@ article .card h5{
 	margin:5px 0 0px 0;
 	font-weight:400;
 }
-
+pre {
+	margin: 0 15px;
+}
 pre, pre code,pre code *{
 	background:#fff;
 	color:#4d4d4c;
@@ -656,10 +659,27 @@ li.L9 {
     color: #4271ae;
   }
 }
+#illustrator-copyright{
+	display: none;
+}
 @media only screen and (min-width: 993px){
 	body {
 		background: url(/img/90231.png) no-repeat fixed;
 		background-size: cover;
+	}
+	#illustrator-copyright{
+		display: block;
+		position: absolute;
+		top: -25px;
+		font-size: 15px;
+		color: white;
+		left: 10px;
+		font-family: monospace;
+	}
+	#illustrator-copyright a{
+		color: white;
+		text-decoration: underline;
+		font-family: monospace;
 	}
 }
 @media only screen and (min-width: 1250px){
@@ -710,7 +730,7 @@ li.L9 {
   	font-size: 1.7rem;
   }
   footer{
-  	flex-flow:wrap;
+	  flex-flow:wrap;
   }
   #footer-right{
   	width:100%;

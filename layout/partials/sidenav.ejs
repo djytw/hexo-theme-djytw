@@ -1,6 +1,7 @@
 <%
 var categoriesList = list_categories({class: 'waves-effect waves-red collect',style: 'none',separator:''}),
     tagsList = list_tags({separator:'',style: 'none'})
+    archivesList = list_archives({class: 'waves-effect waves-red collect',style: 'none',separator:''});
 %>
 <ul id="slide-out" class="sidenav">
   <li>
@@ -9,18 +10,29 @@ var categoriesList = list_categories({class: 'waves-effect waves-red collect',st
         <img src="/img/logo.png">
       </div>
       <div class="content">
-        <h4>djytw</h4>
+        <h4><%=config.author%></h4>
         <i class="material-icons md-16">place</i>
-        <span><a>Taiyuan, China.</a></span><br>
+        <span><a><%=config.address%></a></span><br>
         <i class="material-icons md-16">email</i>
-        <span><a href="mailto:djytw@live.com">djytw@live.com</a></span><br>
+        <span><a href="mailto:djytw@live.com"><%=config.email%></a></span><br>
         <i class="material-icons md-16">code</i>
-        <span><a href="https://github.com/djytw">https://github.com/djytw</a></span>
+        <span><a href="https://github.com/djytw"><%=config.github%></a></span>
       </div>
     </div>
   </li>
   <li><a href="/"><i class="material-icons">home</i>Home</a></li>
-  <li><a href="/archives"><i class="material-icons">archive</i>Archives</a></li>
+  <li>
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header">Archives<i class="material-icons">archive</i><i class="material-icons right">expand_more</i></a>
+        <div class="collapsible-body">
+          <ul class="collect">
+            <%-archivesList%>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
   <li>
     <ul class="collapsible collapsible-accordion">
       <li>
