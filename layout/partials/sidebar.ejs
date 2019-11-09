@@ -4,15 +4,15 @@ var categoriesList = list_categories({class: 'waves-effect waves-red collect',st
     archivesList = list_archives({class: 'waves-effect waves-red collect',style: 'none',separator:''});
 %>
 <div id="intro" class="waves-effect waves-light card hoverable">
-  <div class="card-image tooltipped" data-tooltip="点击返回主页" onclick="location.href='/'">
-    <img src="/img/logo.png">
-  </div>
-  <div class="card-content">
+  <div class="card-content" style="padding:16px">
+    <div style="float:left;margin-right:10px;">
+      <img style="width:60px;height:60px;border-radius:10px;" src="https://avatars2.githubusercontent.com/u/6533064">
+    </div>
     <p>
-    <h1><%=config.author%></h1>
-    <h2><%=config.subtitle%></h2>
-    <hr>
-    <%=config.bio%>
+      <h1><%=config.author%></h1>
+      <h2><%=config.subtitle%></h2>
+      <hr style="margin:20px 0">
+      <%=config.bio%>
     </p>
     <br/>
     <p> <small> <i class="material-icons md-16 grey-text">place</i>
