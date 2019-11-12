@@ -27,8 +27,8 @@ if(is_home()) pageTitle = config.title;
 <%
 	if(page.thumbnail != undefined&&page.thumbnail !=""){
 %>
-<meta name="theme-color" content="#444444">
-<meta name="msapplication-TileColor" content="#444444">
+<meta name="theme-color" content="#42a5f5">
+<meta name="msapplication-TileColor" content="#42a5f5">
 <%
 	}else{
 %>
@@ -40,6 +40,16 @@ if(is_home()) pageTitle = config.title;
 <title><%=pageTitleFull%></title>
 <link href="<%=theme.cdn%>sources/materialize.min.css" rel="stylesheet">
 <link href="/css/doc.css" rel="stylesheet">
+<style>
+	@media only screen and (min-width: 993px){
+		body{
+			background: url(<%=theme.cdn%>assets/<%=theme.header_bg%>) no-repeat fixed;
+		}
+	}
+	#illustrator-copyright::after{
+		content: '<%=theme.header_bg_copy%>';
+	}
+</style>
 </head>
 <body>
 	<!-- NO FIX FOR IE 9- -->
@@ -51,10 +61,10 @@ if(is_home()) pageTitle = config.title;
 	<header class="hide-on-large-only" >
 <% 
 if(!is_post()){ 
-%>	<div style="background: url(<%=theme.cdn%>sources/<%=theme.header_bg%>) no-repeat;"></div>
+%>	<div style="background: url(<%=theme.cdn%>assets/<%=theme.header_bg%>) no-repeat;"></div>
 <% 
 }else if(page.thumbnail==undefined||page.thumbnail==""){ 
-%>	<div style="background: url(<%=theme.cdn%>sources/<%=theme.header_bg%>) no-repeat;"></div>
+%>	<div style="background: url(<%=theme.cdn%>assets/<%=theme.header_bg%>) no-repeat;"></div>
 <% 
 }else{ 
 %>	<div style="background: url(<%=theme.cdn%>assets/<%=page.thumbnail%>) no-repeat;"></div> 
@@ -79,13 +89,13 @@ if(!is_post()){
 		<div class="col s12 l9" id="mainc">
 			<%-body%>
 		</div>
-		<div class="col l3 hide-on-med-and-down">
+		<div class="col l3 hide-on-med-and-down" id="sidebar">
 			<%-partial('partials/sidebar')%>
 		</div>
 	</div>
 </div>
-<script src="<%=theme.cdn%>sources/js.cookie.min.js"></script>
-<script src="<%=theme.cdn%>sources/doc.js"></script>
+<script src="/js/js.cookie.min.js"></script>
+<script src="/js/doc.js"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		M.Sidenav.init(document.querySelectorAll('.sidenav'), {});
@@ -94,17 +104,16 @@ if(!is_post()){
     	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {position:'top',margin:-50});
 		ui_scrollfire_card();
 		ui_materialboxed_init();
-		//scrollTo(0,0);
+		
 <% if(is_post()){ %>
 		var hr = document.createElement("hr");
 		document.querySelector("a#more").parentNode.appendChild(hr);
 <% } %>
-		if(window.innerWidth>=993){
-			util_github_getevent();
-			util_github_getrepos();
-		}
+		util_github_getevent();
+		util_github_getrepos();
 	});
-
+	ui_netease_init();
+	window.addEventListener('resize',ui_netease_init);
 	window.addEventListener('scroll', ui_scrollfire_card);
 	window.addEventListener('scroll', ui_materialboxed_close);
 	window.addEventListener('scroll',function(){
@@ -116,9 +125,9 @@ if(!is_post()){
 		else if(window.scrollY<window.innerHeight*.40-200) t=0;
 		else t=(window.scrollY-window.innerHeight*.40+200)/100;
 <% } else { %>
-		if(window.scrollY>window.innerHeight*.60-100) t=1;
-		else if(window.scrollY<window.innerHeight*.60-200) t=0;
-		else t=(window.scrollY-window.innerHeight*.60+200)/100;
+		if(window.scrollY>window.innerHeight*.50-100) t=1;
+		else if(window.scrollY<window.innerHeight*.50-200) t=0;
+		else t=(window.scrollY-window.innerHeight*.50+200)/100;
 <% } %>
 
 <%
@@ -132,25 +141,20 @@ if(!is_post()){
 <%
 	}
 %>
-		elems.style.boxShadow="0 "+2*t+"px "+2*t+"px 0 rgba(0, 0, 0, 0.14), 0 "+3*t+"px "+t+"px -"+2*t+"px rgba(0, 0, 0, 0.12), 0 "+t+"px "+5*t+"px 0 rgba(0, 0, 0, 0.2)";
+		//elems.style.boxShadow="0 "+2*t+"px "+2*t+"px 0 rgba(0, 0, 0, 0.14), 0 "+3*t+"px "+t+"px -"+2*t+"px rgba(0, 0, 0, 0.12), 0 "+t+"px "+5*t+"px 0 rgba(0, 0, 0, 0.2)";
+		elems.style.boxShadow="0 2px 2px 0 rgba(0,0,0,"+0.14*t+"), 0 3px 1px -2px rgba(0,0,0,"+0.12*t+"), 0 1px 5px 0 rgba(0,0,0,"+0.2*t+")";
 		elem2.style.opacity=t;
 	})
 	
 </script>
 
 <footer>
-	<div id="illustrator-copyright">
-		Illustrated by <a href="https://www.pixiv.net/member.php?id=22782">kyockcho</a>. &copy;2017
-	</div>
 	<div id="footer-left">
 <% if( config.github != undefined ) {%>
 		<a href="<%=config.github%>"><svg alt="github" id="gitlogo" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
 <% } %>
 <% if( config.bangumi != undefined ) {%>
 		<a href="<%=config.bangumi%>"><img alt="bangumi" style="width:24px;height:24px" src="/img/bangumi.png" /></a>
-<% } %>
-<% if( config.kth != undefined ) {%>
-		<a href="<%=config.kth%>"><img alt="kth" style="width:24px;height:24px" src="/img/kth.png" /></a>
 <% } %>
 	</div>
 	<div id="footer-middle">
@@ -167,6 +171,7 @@ if(!is_post()){
 			Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a>
 			&amp; <a href="https://materializecss.com/" target="_blank" class="footer-develop-a">Materialize</a><br>
 			Theme: <a href="https://github.com/djytw/hexo-theme-djytw">hexo-theme-djytw</a><br>
+			<div id="illustrator-copyright">Background image illustrated by <br></div>
 		</div>
 	</div>
 </footer>

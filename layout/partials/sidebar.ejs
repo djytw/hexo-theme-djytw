@@ -3,28 +3,36 @@ var categoriesList = list_categories({class: 'waves-effect waves-red collect',st
     tagsList = list_tags({separator:'',style: 'none'}),
     archivesList = list_archives({class: 'waves-effect waves-red collect',style: 'none',separator:''});
 %>
-<div id="intro" class="waves-effect waves-light card hoverable">
-  <div class="card-content" style="padding:16px">
-    <div style="float:left;margin-right:10px;">
-      <img style="width:60px;height:60px;border-radius:10px;" src="https://avatars2.githubusercontent.com/u/6533064">
+<div id="intro" class="card hoverable">
+  <div class="card-content">
+    <div>
+      <img src="https://avatars2.githubusercontent.com/u/6533064">
     </div>
     <p>
       <h1><%=config.author%></h1>
       <h2><%=config.subtitle%></h2>
-      <hr style="margin:20px 0">
-      <%=config.bio%>
     </p>
-    <br/>
-    <p> <small> <i class="material-icons md-16 grey-text">place</i>
-      <span class="grey-text"><a><%=config.address%></a></span>
-      <br>
-      <i class="material-icons md-16 grey-text">email</i>
-      <span class="grey-text"><a href="mailto:<%=config.email%>"><%=config.email%></a></span>
-      <br>
-      <i class="material-icons md-16 grey-text">code</i>
-      <span class="grey-text"><a href="<%=config.github%>"><%=config.github%></a></span>
-      <br>
-      </small> </p>
+  </div>
+  <div class="card-action">
+    <%=config.bio%><br>
+    <p> 
+      <small> 
+        <i class="material-icons md-16 grey-text">place</i> 
+        <span class="grey-text"><a><%=config.address%></a></span>
+        <br>
+        <i class="material-icons md-16 grey-text">email</i> 
+        <span class="grey-text"><a href="mailto:<%=config.email%>"><%=config.email%></a></span>
+        <br>
+        <i class="material-icons md-16 grey-text">code</i> 
+        <span class="grey-text"><a href="<%=config.github%>"><%=config.github%></a></span>
+        <br>
+      </small> 
+    </p>
+  </div>
+  <div class="card-action">
+    <a class="waves-effect" href="/">
+      <i class="material-icons grey-text">home</i>
+    </a>
   </div>
 </div>
 <div id="tags" class="card hoverable">
@@ -53,6 +61,8 @@ var categoriesList = list_categories({class: 'waves-effect waves-red collect',st
     <div id="git-repos" class="col s12"></div>
     <div id="git-event" class="col s12"></div>
   </div>
+</div>
+<div id="neteasemusic" class="card hoverable">
 </div>
 <div id="archives" class="card hoverable">
   <div class="card-content">
