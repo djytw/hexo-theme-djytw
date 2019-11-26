@@ -105,8 +105,10 @@ function util_github_eventrender(e){
 	gitevent.innerHTML="";
 	for (var t of e) {
 		var s;
-		s = "<div>" + t.time + "<a href=\"" + t.url + "\">" + t.name + "</a>#<a href=\"" + t.url + "/tree/" + t.branch + "\">" + t.branch + "</a></div>";
-		s += "<div><a href=\"" + t.curl + "\">" + t.csha + "</a>" + t.msg + "</div>";
+		t.url = t.url.replace(/api\.github\.com\/repos/,"github.com");
+		t.curl = t.curl.replace(/api\.github\.com\/repos/,"github.com").replace("commits","commit");
+		s = "<div>" + t.time + " <a href=\"" + t.url + "\">" + t.name + "</a>#<a href=\"" + t.url + "/tree/" + t.branch + "\">" + t.branch + "</a></div>";
+		s += "<div><a href=\"" + t.curl + "\">" + t.csha + "</a> " + t.msg + "</div>";
 		gitevent.innerHTML+=s;
 	}
 }
